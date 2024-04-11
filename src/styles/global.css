@@ -1,3 +1,162 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* .resize-handle {
+  background-color: #ccc;
+  width: 10px;
+  height: 10px;
+  cursor: nwse-resize; 
+}
+
+.resizable-component {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}
+
+.react-resizable-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  height: 100%;
+  cursor: ew-resize;
+  background: #ddd;
+}
+
+
+.layout-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100vh;
+}
+
+.resizable-component {
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+}
+
+.component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+} */
+
+/* .wrapper {
+  border-radius: 5px;
+  width: 100wv;
+  height: 100vh;
+  background: teal;
+  position: relative;
+}
+
+.resizable-box {
+  position: absolute;
+  border: 2px solid red;
+  width: 200px;
+  height: 200px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 15px;
+  min-height: 15px;
+}
+
+.resizer {
+  position: absolute;
+  background: white;
+}
+
+.r-left {
+  cursor: row-resize;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+}
+
+.r-top {
+  cursor: row-resize;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+}
+
+.r-right {
+  cursor: row-resize;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+}
+
+.r-top {
+  cursor: row-resize;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 5px;
+} */
+
+.wrapper {
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  padding-inline: 1rem;
+  padding-Block: 1rem;
+  height: 100vh;
+}
+
+.resizable-box {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  border: 1px solid #000;
+}
+
+.resizer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  cursor: pointer;
+}
+
+.r-left {
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  cursor: ew-resize;
+}
+
+.r-top {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: ns-resize;
+}
+
+.r-right {
+  top: 50%;
+  right: 0;
+  transform: translate(50%, -50%);
+  cursor: ew-resize;
+}
+
+.r-bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  cursor: ns-resize;
+}
