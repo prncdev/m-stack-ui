@@ -13,6 +13,15 @@ const theme = createTheme({
     fontFamily: 'Roboto, sans-serif', // Change default font family
   },
   // Add more customizations as needed
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none', // This will remove uppercase transformation
+        },
+      },
+    },
+  }
 });
 
 export default theme;

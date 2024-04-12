@@ -2,8 +2,17 @@ import { useResizable } from 'react-resizable-layout';
 import { cn } from '../utils/cn';
 import SplitterBar from './SplitterBar';
 import AddUsers from './AddUsers';
+import { ShowUsers } from './ShowUsers';
+import { useState } from 'react';
 
 const Resizble = (): JSX.Element => {
+  const [row, setRow] = useState<any>();
+
+  const handleSelectedRow = function(row:any) {
+    console.log(row);
+    setRow(row)
+  }
+
   const {
     isDragging: isFileDragging,
     position: fileW,
@@ -26,13 +35,12 @@ const Resizble = (): JSX.Element => {
     <div className='flex flex-col h-screen font-mono text-white text-base overflow-hidden'>
       <div className='flex grow'>
         <div className={cn('shrink-0 bg-dark', isFileDragging)} style={{ width: fileW }}>
-          File Tree
+          <ShowUsers onSelectRow={handleSelectedRow} />
         </div>
 
         <SplitterBar isDragging={isFileDragging} {...fileDragBarProps} />
 
-        <div className={cn('grow bg-darker', isEditorDragging)} style={{ width: editorW }}>
-          {/* Editor */}
+        <div className={cn('grow bg-darker overflow-y-auto min-h-1', isEditorDragging)} style={{ width: editorW }}>
           <AddUsers />
         </div>
       </div>
@@ -45,6 +53,7 @@ const Resizble = (): JSX.Element => {
       />
       <div className={cn('shrink-0 bg-darker', isTerminalDragging)} style={{ height: terminalH }}>
         Terminal
+        {/* {row} */}
       </div>
     </div>
   );
