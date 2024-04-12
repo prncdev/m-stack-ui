@@ -1,15 +1,10 @@
-import React from 'react';
-// import logo from './logo.svg';
-import './styles/global.css'
-import ResizableContainer from './components/ResizableContainer';
-import Layout from './components/TestResizable';
+import Resizble from './components/Resizble';
+import './styles/global.css';
 
 function App() {
   return (
-    <main className="App ">
-      {/* <h1>Happy Hacking.(:</h1> */}
-      <ResizableContainer />
-      {/* <Layout/> */}
+    <main className="App w-screen h-screen overflow-hidden">
+      <Resizble />;
     </main>
   );
 }
