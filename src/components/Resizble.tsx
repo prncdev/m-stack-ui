@@ -8,7 +8,7 @@ import { useState } from 'react';
 const Resizble = (): JSX.Element => {
   const [row, setRow] = useState<any>();
 
-  const handleSelectedRow = function(row:any) {
+  const handleSelectedRow = function(row: any) {
     console.log(row);
     setRow(row)
   }

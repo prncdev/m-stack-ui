@@ -8,13 +8,14 @@ import {
   Radio,
   RadioGroup,
   Select,
-  SelectChangeEvent,
   styled,
   TextField,
 } from '@mui/material';
-import { ChangeEvent, FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { IoAddOutline, IoImagesOutline } from 'react-icons/io5';
 import { ageList } from '../utils/ageList';
+
+import addUser from '../services/addUser';
 
 const ImageInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -28,35 +29,92 @@ const ImageInput = styled('input')({
   width: 1,
 });
 
-const AddUsers: FC = function () {
-  const [gander, setGander] = useState('');
-  const [age, setAge] = useState('');
+interface iUserForm {
+  name: string;
+  lastName: string;
+  email: string;
+  gender: string;
+  age: string;
+  image_url?: string;
+}
 
-  const handleGender = (event: ChangeEvent<HTMLInputElement>) => {
-    setGander((event.target as HTMLInputElement).value);
+const AddUsers: FC = function () {
+  const [userForm, setUserForm] = useState<iUserForm>({
+    name: '',
+    lastName: '',
+    email: '',
+    gender: '',
+    age: '',
+    image_url: '',
+  });
+
+  const handleFormData = function (e: any) {
+    const { name, value } = e.target;
+    setUserForm({ ...userForm, [name]: value });
   };
 
-  const handleAge = function (event: SelectChangeEvent) {
-    setAge(event.target.value);
+  // const handlerClearFormData = function () {
+  //   setUserForm(prevState => ({
+  //     ...prevState,
+  //     name: '',
+  //     lastName: '',
+  //     email: '',
+  //     gender: '',
+  //     age: '',
+  //     image_url: '',
+  //   }));
+  // };
+  const handlerClearFormData = function () {
+    setUserForm({
+      ...userForm,
+      name: '',
+      lastName: '',
+      email: '',
+      gender: '',
+      age: '',
+      image_url: '',
+    });
+  };
+
+  const handleFormSubmit = async function (e: any) {
+    await addUser(userForm);
+    handlerClearFormData();
   };
 
   return (
     <main>
       <section className='flex flex-col gap-3 w-full bg-white py-2 px-3'>
         <div className='flex gap-4'>
-          <TextField fullWidth placeholder='First name' />
-          <TextField fullWidth placeholder='Last name' />
+          <TextField
+            fullWidth
+            name='name'
+            value={userForm.name}
+            onChange={handleFormData}
+            placeholder='First name'
+          />
+          <TextField
+            fullWidth
+            name='lastName'
+            value={userForm.lastName}
+            onChange={handleFormData}
+            placeholder='Last name'
+          />
         </div>
 
-        <TextField placeholder='Email address' />
+        <TextField
+          name='email'
+          value={userForm.email}
+          onChange={handleFormData}
+          placeholder='Email address'
+        />
 
         <FormControl className='w-fit text-black'>
           <FormLabel id='demo-controlled-radio-buttons-group'>Gender</FormLabel>
           <RadioGroup
             aria-labelledby='demo-controlled-radio-buttons-group'
-            name='controlled-radio-buttons-group'
-            value={gander}
-            onChange={handleGender}
+            name='gender'
+            value={userForm.gender}
+            onChange={handleFormData}
           >
             <FormControlLabel value='male' control={<Radio />} label='Male' />
             <FormControlLabel
@@ -72,9 +130,10 @@ const AddUsers: FC = function () {
             <InputLabel id='demo-select-age'>Age</InputLabel>
             <Select
               labelId='demo-select-age'
-              value={age}
+              name='age'
+              value={userForm.age}
               label='Age'
-              onChange={handleAge}
+              onChange={handleFormData}
               className='w-20'
             >
               <MenuItem value=''>
@@ -92,15 +151,35 @@ const AddUsers: FC = function () {
               startIcon={<IoImagesOutline />}
             >
               Set photo
-              <ImageInput type='file' />
+              <ImageInput
+                type='file'
+                name='image_url'
+                onChange={handleFormData}
+              />
             </Button>
           </FormControl>
 
           <div className='flex gap-2'>
-            <Button variant='contained' endIcon={<IoAddOutline />}>
+            <Button
+              variant='contained'
+              endIcon={<IoAddOutline />}
+              disabled={
+                !userForm.name ||
+                !userForm.lastName ||
+                !userForm.email ||
+                !userForm.age ||
+                !userForm.gender
+              }
+              onClick={handleFormSubmit}
+            >
               Add now
             </Button>
-            <Button variant='outlined'>Clearn</Button>
+            <Button
+              variant='outlined'
+              onClick={handlerClearFormData}
+            >
+              Clearn
+            </Button>
           </div>
         </div>
       </section>
